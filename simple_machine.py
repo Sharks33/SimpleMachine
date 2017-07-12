@@ -10,21 +10,28 @@ except ImportError:
 
 
 job_1 = Job("SYSTEM PROCEDURE: ")
-job_3 = Alert("SYSTEM ALERT: ")
-job_4 = LogFile("SYSTEM LOG: ")
-job_5 = SystemStatus("SYSTEM STATUS: ")
+job_2 = Alert("SYSTEM ALERT: ")
+job_3 = LogFile("SYSTEM LOG: ")
+job_4 = SystemStatus("SYSTEM STATUS: ")
 
-Job.jobs = [job_1, job_3, job_4, job_5]
+status = "OFF"
+
+Job.jobs = [job_1, job_2, job_3, job_4]
 
 def toggle_button():
+    global status
 
-    if t_btn.config('text')[-1] == 'POWER OFF':
-        t_btn.config(text='POWER ON')
-        for j in Job.jobs:
-            print j.execute()
+    if status == "OFF":
+        status = "ON"
+        t_btn.config(text='POWER OFF MACHINE')
     else:
-        t_btn.config(text='POWER OFF')
-        print job_5.execute()
+        status = "OFF"
+        t_btn.config(text='POWER ON MACHINE')
+
+    for j in Job.jobs:
+        output = j.execute(status)
+        if output:
+            print output
 
     return "Button Pressed"
 

@@ -1,18 +1,11 @@
 from job import Job
 
 class SystemStatus(Job):
-
-    global status
-    status = "ON"
+    # Execute when on or off
 
     @classmethod
-    def is_running(cls, status, i=[0]):
-        i[0] += 1
-        if i[0] % 2 == 0:
-            status = "ON"
-        else:
-            status = "OFF"
+    def is_running(cls, status):
         return "The system is currently powered {} ".format(status)
 
-    def execute(self):
+    def execute(self, status):
         return SystemStatus.is_running(status)

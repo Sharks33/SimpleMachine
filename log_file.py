@@ -3,6 +3,7 @@ import time
 from job import Job
 
 class LogFile(Job):
+    # Execute when off
 
     @classmethod
     def sys_off_time(cls):
@@ -15,5 +16,6 @@ class LogFile(Job):
         logging.info('')
         return "System shutdown information has been logged to sys_log.log"
 
-    def execute(self):
-        return LogFile.sys_off_time()
+    def execute(self, status):
+        if status == "OFF":
+            return LogFile.sys_off_time()
